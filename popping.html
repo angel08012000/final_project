@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>popping</title>
+        <style type="text/css">   
+            body{background-color: black;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            }  
+            a{text-decoration-line: none;}
+            .mark{height: 100pt; width: auto;}
+            .para{border:solid;border-color:goldenrod;margin-left:50pt;padding:10pt;}
+            .introduction{margin-left:60pt;font-size:20px;}
+            p{color:white;}   
+            h1{color:white;}   
+            #master        { position: fixed; width: 100px; top: 60px; left: -100px; z-index:2; visibility: visible;} 
+            #menu        { position: absolute; width: 18px; top: 70px; left: 100px; z-index: 6; visibility: visible;} 
+            #screen        { position: absolute; width: 100px; height: 30px; top: 76px; left: 0px; z-index: 5; visibility: visible; background: blue; } 
+            #screenlinks    { position: absolute; width: 88px; top: 81px; left: 5px; background: #ccddff; border: 1px solid #77f; margin: 0px; padding: 2px 0 0; z-index:5; visibility:visible;} 
+            #screenlinks dd    { margin: 0; padding: 0 0 2px 5px; } 
+            </style>
+            <script>
+                var master = new Object("element") 
+                master.curLeft = -100;
+                master.curTop = 10; 
+                master.gapLeft = 0;
+                master.gapTop = 0; 
+                master.timer = null; 
+ 
+                function moveAlong(layerName, paceLeft, paceTop, fromLeft, fromTop){ 
+                    clearTimeout(eval(layerName).timer) 
+ 
+                    if(eval(layerName).curLeft != fromLeft){ 
+                        if((Math.max(eval(layerName).curLeft, fromLeft) - Math.min(eval(layerName).curLeft, fromLeft)) < paceLeft){
+                            eval(layerName).curLeft = fromLeft
+                        } else if(eval(layerName).curLeft < fromLeft) {
+                            eval(layerName).curLeft = eval(layerName).curLeft + paceLeft
+                        } else if(eval(layerName).curLeft > fromLeft) {
+                            eval(layerName).curLeft = eval(layerName).curLeft - paceLeft
+                        }
+                        document.getElementById([layerName]).style.left = eval(layerName).curLeft + 'px';
+                    } 
+ 
+                    if(eval(layerName).curTop != fromTop){ 
+                        if((Math.max(eval(layerName).curTop, fromTop) - Math.min(eval(layerName).curTop, fromTop)) < paceTop){
+                            eval(layerName).curTop = fromTop
+                        } else if(eval(layerName).curTop < fromTop) {
+                            eval(layerName).curTop = eval(layerName).curTop + paceTop
+                        } else if(eval(layerName).curTop > fromTop) {
+                            eval(layerName).curTop = eval(layerName).curTop - paceTop
+                        } 
+                        document.getElementById([layerName]).style.top = eval(layerName).curTop + 'px';
+                    } 
+ 
+                    eval(layerName).timer=setTimeout('moveAlong("'+layerName+'" , '+paceLeft+' , '+paceTop+' , '+fromLeft+' , '+fromTop+')',30) 
+                } 
+ 
+                function setPace(layerName, fromLeft, fromTop, motionSpeed){ 
+                    eval(layerName).gapLeft = (Math.max(eval(layerName).curLeft, fromLeft) - Math.min(eval(layerName).curLeft,fromLeft))/motionSpeed 
+                    eval(layerName).gapTop = (Math.max(eval(layerName).curTop, fromTop) - Math.min(eval(layerName).curTop,fromTop))/motionSpeed
+ 
+                    moveAlong(layerName, eval(layerName).gapLeft, eval(layerName).gapTop, fromLeft, fromTop) 
+                } 
+ 
+                var expandState = 0 
+ 
+                function expand(){ 
+                    if(expandState == 0){
+                        setPace("master", 0, 10, 10);
+                         expandState = 1;
+                    } else {
+                        setPace("master", -100, 10, 10);
+                        expandState = 0;
+                    } 
+                }
+            </script>
+    </head>
+    
+    <body>
+        <h1 align="center">popping</h1>
+        <p class="introduction">
+            很多人都認為Popping就是像機器人那樣跳舞，但其實這麼說不太正確，robot只是Popping裡的一小部分，除此之外還有tutting, animation, cobra...等等，就是現在，讓我們回到70年代，來看看Popping的形成。
+        </p>
+        <br>
+        <audio class="introduction" controls>
+            <!--<source src="on%20the%20come%20up.ogg" type="audio/ogg">-->
+            <source src="on%20the%20come%20up.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <br>
+        <h1 align="center" id="history">History</h1>
+        <div id="master">
+                <div id="menu">
+                    <img class="mark" src="mini.png" onmouseover="expand();" alt="Menu" />
+                </div>
+                <div id="screen"></div>
+                <dl id="screenlinks">
+                    <dd><a href="#history">history</a></dd>
+                    <dd><a href="#dancer">dancer</a></dd>
+                    <dd><a href="#example">example</a></dd>
+                    <dd><a href="#event">event</a></dd>
+                </dl>
+        </div>
+        <div class="para">
+            <h1>特色與歷史</h1>
+            <!--<p>
+                Popping的起源，其實有很多種說法，但其中最廣為人知且最被認同的是，Boogaloo Sam 在電視上看到鎖舞先鋒團體 The Lockers 的表演而被啟發，因此創造了這個風格。
+            </p>-->
+            <p>
+                剛開始他們稱自己的風格為Boogaloos，這是一種很柔順、很柔軟的舞步，來加上了freezes, stomp, bounce, hop 才變得比較有力。
+            </p>
+            <p>
+                 Black Messengers(一個團體成立於1972年)，他們開始把Boogaloo變成一個比較機械化的風格，所以才有了Robot。
+            </p>
+            <p>
+                在奧克蘭，人們常常做一些pose，但其實就只是停，Black Messagers把原本柔軟的stop加上了震點，變成了強而有力的stop。
+            </p>
+            <p>
+                但其實popping的狀況非常的混亂，當時有很多地區，同時在發展，我們沒有辦法非常肯定且追朔到是哪個人發明了popping。
+            </p>
+            <h1>名字演變</h1>
+            <p>
+                popping這個名字的由來也是有很多種說法。
+                有人說是因為Sam Boogaloo在每次震點時都會說pop這個字，於是被稱為popping。
+                也有人說一群人看到他們在跳舞，就說他們跳的是popping，然後就被稱為popping了！
+            </p>
+            <h1>發展</h1>
+            
+        </div>
+        <h1 align="center" id="dancer">Dancer</h1>
+        <div class="para">
+            <h1>Dytto</h1>
+            <img src="Dytto.jpg" style="height:300px; width:auto">
+            <img src="popping.jpg" style="position:absolute;left:800px; height:300px">
+            <p>美貌與實力兼具的 真人芭比</p>
+            <p>從體操運動員 到 啦啦隊隊長 到 現在的dancer</p>
+            <p>他的第一部影片 <a href="https://www.youtube.com/watch?v=5CvwgC-WQlo">barbie girl</a> 震驚了許多人</p>
+            <p>雖然年輕(1998) 但實力卻超越許多人</p>
+            <h1>【資歷】</h1>
+        </div>
+        <h1 align="center" id="example">Example</h1>
+        <div class="para">
+
+        </div>
+        <h1 align="center" id="event">Event</h1>
+        <div class="para">
+            <p>College High</p>
+            <p>obs battle</p>
+            <p>WOD (World Of Dance)</p>
+        </div>
+    </body>
+</html>
