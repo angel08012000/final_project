@@ -2,15 +2,27 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>waaccking</title>
+        <title>breaking</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <style type="text/css">   
+            @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
             body{background-color: black;
-                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            }  
+                font-family: 'cwTeXYen', sans-serif;
+                color:white;
+                text-align: center;
+            }
+            
+            #mouse{
+                cursor:url("https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=2ahUKEwiErImcuMHmAhW_w4sBHTdbDfYQjRx6BAgBEAQ&url=https%3A%2F%2Fzh.pngtree.com%2Fso%2F%25E5%25B0%258F%25E8%25B1%25AC&psig=AOvVaw2z1hsKC9IjPk1FjCnofCeH&ust=1576835513794312"),default;
+                width:300px;
+                height:300px;
+                border:1px solid pink;
+            }
+            
             a{text-decoration-line: none;}
             .mark{height: 100pt; width: auto;}
-            .para{border:solid;border-color:goldenrod;margin-left:50pt;padding:10pt;}
+            .para{border:solid;border-color:goldenrod;margin-left:50pt;margin-right:50pt;padding:10pt;}
             .introduction{margin-left:60pt;font-size:20px;}
             p{color:white;}   
             h1{color:white;}   
@@ -83,16 +95,34 @@
                  document.getElementById("MovieShow").pause();
                 }}
             
+                function start(){
+                    document.getElementById("music").onplaying = function(){
+                        $("#horn").attr("class", "animated infinite heartBeat");
+                        console.log("in");
+                    }
+                    
+                    document.getElementById("music").addEventListener("pause", stop, false);
+                }
+                
+                function stop(){
+                    $("#horn").removeClass("animated infinite heartBeat");
+                    console.log("out");
+                }
+                
+                window.addEventListener("load", start, false);
+                
             </script>
     </head>
     
-    <body>
-        <h1 align="center">waaccking</h1>
-        <p class="introduction">Waacking這種舞蹈總是給人一種性感與優雅並存的感覺，往往學習waacking的女生在跳了幾年之後，整個人的氣質和形象都會得到大大提升，這也是為什麼waacking這個舞種總是盛產女神的原因。當然，waacking也有很多男生在跳，而且跳得也不比女生差。而要了解waacking要從70年代講起……</p>
+    <body class="mouse">
+        <h1 align="center">Breaking</h1>
+        <p class="introduction">
+            大家都知道的事情是，BBOYING這個舞蹈本身，是一種典型的草根文化，是美國的窮人們玩起來的東西。作為這樣一種草根文化，在起初是沒有人去專門去為它製作音樂的，更別說專職為BBOY服務的DJ了。在KOOL HERC之前，還沒有真正意義上的DJ。所以那時候大家都是拿現成的PARTY音樂去跳BBOYING。所謂的PARTY音樂，就是當時美國派對里盛行的FUNK、ROCK，乃至DISCO。
+        </p>
         <br>
         <div style="margin-left:100px;">
-            <img src="喇叭.png" class="animated infinite heartBeat"style="height:100px;"> 
-            <audio class="introduction" controls>
+            <img id="horn" src="喇叭.png" style="height:100px;"> 
+            <audio id="music" class="introduction" controls>
                 <source src="crazy-elephant.ogg" type="audio/ogg">
                 <source src="crazy-elephant.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
@@ -102,71 +132,48 @@
         <h1 align="center" id="history">History</h1>
         <div id="master">
                 <div id="menu">
-                    <img class="mark" src="mini.png" onmouseover="expand();" alt="Menu" />
+                    <img class="mark" src="mini.jpg" onmouseover="expand();" alt="Menu" />
                 </div>
                 <div id="screen"></div>
                 <dl id="screenlinks">
                     <dd><a href="#history">history</a></dd>
                     <dd><a href="#dancer">dancer</a></dd>
                     <dd><a href="#example">example</a></dd>
-                    <dd><a href="#event">event</a></dd>
                 </dl>
         </div>
         <div class="para">
             <h1>特色與歷史</h1>
-            <p>Waacking這種舞蹈總是給人一種性感與優雅並存的感覺，往往學習waacking的女生在跳了幾年之後，整個人的氣質和形象都會得到大大提升，這也是為什麼waacking這個舞種總是盛產女神的原因。當然，waacking也有很多男生在跳，而且跳得也不比女生差。</p>
-            <p>waacking起源於20世紀70年代美國洛杉磯的同性戀酒吧。在那個社會還沒現在開放的年代，大眾文化是不接受同性戀的存在的，同志們只能在生活中隱藏自己的性取向。但是在酒吧里就不一樣了，在同性戀的酒吧里他們無需隱藏自己的身份，可以盡情釋放自我，拋棄社會對他們的壓力。</p>
-            <p>最早期的Waacking，都是由男舞者男扮女裝演出，以上肢快速的甩動旋轉為特色，此外，舞者通過模仿無聲電影明星戲劇性的pose來加強了舞蹈的視覺效果。</p>
-            <p>舞蹈是離不開音樂的，在disco音樂橫行的20世紀70年代，waacking大多搭配disco演出。</p>
+            <p>
+                最初，參加派對的Bboy都只是做一些不含地板動作的搖滾步，而後來就稱那時的Breaking為Old - School (old-style Breaking)。之後，地板動作出現，Breaking也就相應誕生。
+                
+                breaking誕生後，短時間內變得人人皆知，喜歡breaking的人迅速接納並把breaking變成了生活中的一部分，走下舞池後，擺幾個pose，然後做一些地板動作，當他們做出一些超酷的動作時，身邊的人就會開始聚集，並以舞者為中心圍成一個圈子，最後可能就有其他人來尬舞。
+            </p>
             <h1>名字演變</h1>
-            <p>Waacking並不是最初的名字，他是從許多名字演變過來的，其中包刮Garbo,Punkin等等，但是代表舞蹈作為一個整體，最知名的名字還是waacking。Punk這個waacking最初的名字是由一個在Gay Bar駐場的DJ Ginos所創造的，只是用來作為同性戀舞者之間的玩笑，但是老一輩的Punkin OG認為punk這個詞帶有負面的意思，於是乎結合了音樂，將它轉化成一種積極的感覺(punk music)。之後受電影影響，把’whack’(敲擊，其中一種動作)當作waacking的名字。後來由的一位學習waacking的直男把有負面意思的whack的h換成a而產生waack,waackin這些名字。最後由waacking之父(Tyrone Proctor)的強調，Jeffery Daniel在waackin後面加上g變成’waacking’，成了現在公認的拼法。</p>
-            <p>Whack-waack-waackin-waacking</p>
-            <h1>發展</h1>
-            <p>那到底waacking是怎麼從Gay bar走出來，發展到如今全球舞者都會學習的舞種呢？這大概要歸功於Punking OG Arthur，Tinker和Andrew，他們通過一個叫Soul Train的電視節目，將這種舞蹈展現給觀眾看。而被譽為waacking之父的Tyrone Proctor更是通過自己的表演，幫流行明星編舞，在世界各地授課，讓Waccking在全球範圍內被熟悉和喜愛。</p>
-            <h1>差點消失的waacking</h1>
-            <p>在80年代艾滋病的發現讓waacking收到了重擊，幾乎所有punking OG都因為感染艾滋病而離世。這導致了80年代至90年代，punking幾乎完全從公眾視野中消失，只有在紐約和洛杉磯的Gay Bar勉強保留著一些waacking的痕迹，曾經在影視上大放異彩的waacking動作也變得曇花一現。</p>
-            <h1>Waacking的服裝文化</h1>
-            <p>waacking這種舞蹈總會給人一種性感高雅的感覺，除了舞蹈動作本身之外，舞者的穿著打扮更是讓這種感覺大大提升</p>
-            <p>不同於其他舞種的穿著打扮，waacking的穿著打扮是非常之講究的，跳waacking的女生都必定帶著精緻的妝容，踩著高跟鞋，穿著最華麗耀眼的衣服，這並不是誇張或者是裝X，而是植根於Waacking歷史文化的一種體現，因為最初的Waacking是gay bar里的男性舞者男扮女裝登台表演的，所以為了展現自己的個性，男舞者的打扮都會十分之誇張也十分之精緻。</p>
-            <p>所以這也解釋了為什麼跳waacking的女生，在學習了幾年Waacking之後都變成女神的原因啦~不僅僅是學會一種打扮，更是對Waacking文化的一種致敬和尊重。</p>
-            <p>回歸到最初，waacking就是一種表達，waacking的精神就是無論你是男生還是女生，無論你是什麼膚色人種，你都應該勇於表達自己，展現自我。</p>
-            <p>這，就是waacking。</p>
-            <p>參考網址:<a href="https://zi.media/@yidianzixun/post/CvYNjg">https://zi.media/@yidianzixun/post/CvYNjg</a></p>
+            <p>
+                Breaking主要由TopRock、UpRock、Footwork、Powermoves、Freeze等幾類不同的舞蹈方式所組成。Breaking最初發明於紐約的Bronx區，當時許多DJ帶著唱盤機和喇叭在街頭廣泛舉行各種音樂派對並形成風潮，逐漸越來越多的人開始習慣於在派對音樂中沒有歌詞的間奏部分跳舞，於是眾多DJ中一個名為Kool Herc的佼佼者發明了將兩張唱盤的間奏部分拼接起來以獲得更長的跳舞時間的方式，並由此產生了Break Beat這種音樂形式。而在這種間奏時間裡跳舞的人就被稱之為間奏男孩Break Boy，即B Boy，而B Boy所跳的舞蹈便被稱之為B Boying，並在之後的商業化宣傳中被稱為Breaking通行至今。
+            </p>
         </div>
         <h1 align="center" id="dancer">Dancer</h1>
         <div class="para">
-            <h1>IBUKI(Bad Queen Waacking Basic Class)</h1>
-            <img src="waacking.jpg" style="height:300px;">
-            <img src="w.gif" style="position: absolute;left:70%; height:300px;">
-            <p>天才美少女 8歲開始跳舞</p>
-            <p>Dance@Live簽約舞蹈明星也是日本職業舞蹈明星</p>
-            <p>多家知名品牌代言</p>
-            <p>看起來嬌小卻爆發力十足又年輕的Waacker!!</p>
+            <h1>Gumball</h1>
+            <img src="gumball.jpg" style="height:300px;">
+            
+            <p>爆發力強 動作乾淨的孫悟空</p>
+            <p>成都新空間舞團</p>
+            <p>Punkhaoniewcrew</p>
+            <p>完美詮釋音樂的實力舞者</p>
             <h1>【資歷】</h1>
-            <p>2012 Battle CAT HongKong waacking 冠軍</p>
-            <p>Holyday in Waacking冠軍</p>
-            <p>Dance@Liveg世界盃冠軍</p>
-            <p>2013 Nick japan Bad Promotion Stage</p>
-            <p>2014 Funk Style 2014 年冠軍</p>
-            <p>Hot Mess 2014 冠軍</p>
-            <p>Stree star Waacking冠軍</p>
-            <p>2015 Get Mooving Korea 冠軍</p>
-            <p>90”S “A Farme” Cat shibuya Dance Week in Tokyo Japan</p>
+            <p>2018韓國國際街舞精英邀請賽中國賽區地板舞亞軍</p>
+            <p>這就是街舞第二季 黑馬選手</p>
         </div>
         <h1 align="center" id="example">Example</h1>
             
         <div class="para">
             <video id="MovieShow" width="360" height="270" >
-                <source src="waacking.mp4" type="video/mp4">
+                <source src="頭轉.mp4" type="video/mp4">
                 您的瀏覽器不支援此 HTML5 影片標籤
             </video>
-            <input type="button" value="開始播放" onclick="Control('start');">
-        </div>
-        <h1 align="center" id="event">Event</h1>
-        <div class="para">
-            <p>College High</p>
-            <p>C'est la waack</p>
-            <p>WOD (World Of Dance)</p>
+            <input type="button" value="頭轉" onclick="Control('start');">
         </div>
     </body>
 </html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!-- saved from url=(0153)file:///Users/cihcih/Desktop/%E7%B6%B2%E9%A0%81%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E6%9C%9F%E6%9C%AB%E5%B0%88%E6%A1%88/%E9%80%A3%E9%80%A3%E7%9C%8B.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+    <title>連連看</title>
+     <style> 
+        * {
+            margin: 0;
+            padding: 0;
+         } 
+         
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+         
+        @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+         body{
+            font-family: 'cwTeXYen', sans-serif;
+            color:white;
+         }
+         html { width: 100%; height: 100%; background: #222; overflow: hidden; } 
+         .wrapper { background-size: 100% 100%; margin: 10px auto; position: relative; /* border: 1px solid #f40; */ } 
+         .square { cursor: pointer; position: absolute; width: 100px; height: 100px; background-size: cover; } 
+    </style> 
+</head> 
+<body>
+    <br>
+    <br>
+    <div style="font-size: 20px; text-align: center; color: white">
+        請將動作＆對應的舞風配對～～
+    </div>
+    <div class="wrapper" style="height: 300px; width: 400px;">
+
+    <div class="square" style="background-image: url(&quot;5.jpg&quot;); top: 100px; left: 100px;"></div><div class="square" style="background-image: url(&quot;3.gif&quot;); top: 100px; left: 200px;"></div><div class="square" style="background-image: url(&quot;4.jpg&quot;); top: 100px; left: 300px;"></div><div class="square" style="background-image: url(&quot;5.gif&quot;); top: 100px; left: 400px;"></div><div class="square" style="background-image: url(&quot;0.jpg&quot;); top: 200px; left: 100px;"></div><div class="square" style="background-image: url(&quot;0.gif&quot;); top: 200px; left: 200px;"></div><div class="square" style="background-image: url(&quot;1.jpg&quot;); top: 200px; left: 300px;"></div><div class="square" style="background-image: url(&quot;4.gif&quot;); top: 200px; left: 400px;"></div><div class="square" style="background-image: url(&quot;2.jpg&quot;); top: 300px; left: 100px;"></div><div class="square" style="background-image: url(&quot;1.gif&quot;); top: 300px; left: 200px;"></div><div class="square" style="background-image: url(&quot;3.jpg&quot;); top: 300px; left: 300px;"></div><div class="square" style="background-image: url(&quot;2.gif&quot;); top: 300px; left: 400px;"></div></div>
+    
+    <img id="lose" src="./連連看_files/You_Lose.gif" class="animated bounceInDown" style="height:500px; z-index: 1;">
+
+     <script>
+         
+     var wrap = document.getElementsByClassName('wrapper')[0];
+     var rows = 3; // 創建連連看行數 
+     var cols = 4; // 創建連連看列數 
+     var type1=6;
+     var type2 = 6; //選擇多少種圖片，0-24都可以 看自己心情 數字大種類多 數字小種類少遊戲難度更簡單 
+     var squareSet = []; // 生成小方塊的數組 
+     var chooseOne = null; // 
+     var chooseTwo = null; // 
+     var Toward = { node: null,
+                    up: { row: -1, col: 0 },
+                    right: { row: 0, col: 1 },
+                    down: { row: 1, col: 0 },
+                    left: { row: 0, col: -1 }
+                } 
+     window.onload = function () {
+         init(); //初始化
+         window.alert("記住！你只有兩次機會！！");
+         window.alert("！！兩次！！");
+         $("#lose").hide();
+    } 
+     function init() {
+         if (rows * cols % 2 != 0) { //判斷小方塊總數是否為奇數，奇數就不執行 
+            alert('展示數量不能為奇數') // 彈出提示，阻塞js加載 
+        }
+        initSquareSet(); 
+    }
+    
+    function initSquareSet() { // 方塊默認長寬都是80px 
+        wrap.style.height = rows * 100 + 'px'; // 外面盒子的總高度 
+        wrap.style.width = cols * 100 + 'px'; // 外面盒子的總寬度 
+        var oDiv = document.createElement('div');
+        var tmp1 = createRandomNum();
+        var tmp2 = createRandomNum();
+        //生成隨機數數組 我的圖片名稱是0.jpg~24.jpg 函數生成0~24隨機數就可以通過字符串拼接動態的選擇圖片 
+        
+        squareSet = new Array(rows + 2); // 生成小方塊的數組 既有行又有列 我們就要利用for循環生成二維數組 57~60 
+        for (var i = 0; i < squareSet.length; i++) {
+            squareSet[i] = new Array(cols + 2);
+        } 
+        for (var i = 1; i <= rows; i++) { // 生成行數 
+            for (var j = 1; j <= cols; j+=2) { // 生成列數 同理 
+                var temp = createSquare(tmp1.pop(), i, j); // 參數每次取隨機數數組的最後一位 i小方塊在整體中行的位置j是列的位置 temp接收這個返回的DOM元素 
+                var temp2= createSquare2(tmp2.pop(), i, j+1);
+                squareSet[i][j] = temp; 
+                squareSet[i][j+1] = temp2; 
+                wrap.append(temp); 
+                wrap.append(temp2); 
+                temp.onclick = function () {
+                    if (chooseOne == null || chooseOne.num != this.num) { // 判斷是第一次點擊還是第二次 77~81 沒有值或者說沒有屬性的都是第一次點擊 
+                    chooseOne = this; 
+                    } 
+                    else {
+                        chooseTwo = this;
+                        if (chooseOne != chooseTwo && chooseOne.num == chooseTwo.num && chooseTwo.c=="j") { //判斷第一次和第二次點擊不是同一個 並且num值相等 以及是否在路徑上可以消除 
+                            clearSquare(chooseOne.row, chooseOne.col);
+                            clearSquare(chooseTwo.row, chooseTwo.col);
+                        } 
+                        chooseOne = null;
+                        chooseTwo = null; 
+                    } 
+                    render(); // 點擊方塊變換樣式 
+                } 
+                temp2.onclick = function () {
+                    if (chooseOne == null || chooseOne.num != this.num) { // 判斷是第一次點擊還是第二次 77~81 沒有值或者說沒有屬性的都是第一次點擊 
+                    chooseOne = this; 
+                    } 
+                    else {
+                        chooseTwo = this;
+                        if (chooseOne != chooseTwo && chooseOne.num == chooseTwo.num && chooseTwo.c=="g") { //判斷第一次和第二次點擊不是同一個 並且num值相等 以及是否在路徑上可以消除 
+                            clearSquare(chooseOne.row, chooseOne.col);
+                            clearSquare(chooseTwo.row, chooseTwo.col);
+                        } 
+                        chooseOne = null;
+                        chooseTwo = null; 
+                    } 
+                    render(); // 點擊方塊變換樣式 
+                } 
+            } 
+        } 
+    } 
+    
+    function createRandomNum() {
+        var tmp = [0, 1, 2, 3, 4, 5]; // 存放生成圖片是 字符串拼接的數字 
+        // rows * cols 可以算出需要多少張圖片 然後除以2 因為每張圖片都是成對出現的 即 7*12=84張圖片 84/2=41算出有42對 
+        console.log(tmp); // 看看生成的數組 可以看到成對的隨機數字數組 
+        
+        tmp.sort(function () {
+            return Math.random() - 0.5; //可以打亂數組 
+        }) // 
+        console.log(tmp); // 看看生成的數組 可以看到已經不成對的隨機數字數組 
+        return tmp; // 將數組返回回去 
+    } 
+    
+    function createSquare(num, row, col) {
+        var temp = document.createElement('div');
+        temp.classList.add('square');
+        temp.style.backgroundImage = "url('" + num + ".jpg')";
+        temp.style.top = row * 100 + 'px'; // 生成方塊的位置 96,97
+        temp.style.left = col * 100 + 'px';
+        temp.num = num; //設置小方塊的隨機數屬性 到時候可以用來判斷屬性是否一樣來判斷是否消除小方塊
+        temp.col = col;
+        temp.row = row;
+        temp.c="j";
+        return temp; //返回了一個帶著屬性的DOM元素
+    } 
+    function createSquare2(num, row, col) {
+        var temp = document.createElement('div');
+        temp.classList.add('square');
+        temp.style.backgroundImage = "url('" + num + ".gif')";
+        temp.style.top = row * 100 + 'px'; // 生成方塊的位置 96,97
+        temp.style.left = col * 100 + 'px';
+        temp.num = num; //設置小方塊的隨機數屬性 到時候可以用來判斷屬性是否一樣來判斷是否消除小方塊
+        temp.col = col;
+        temp.row = row;
+        temp.c="g";
+        return temp; //返回了一個帶著屬性的DOM元素
+    } 
+    
+    function render() {
+        for (var i = 0; i < squareSet.length; i++) { //做一個樣式的切換 
+            for (var j = 0; j < squareSet[i].length; j++) {
+                if (squareSet[i][j] && squareSet[i][j] == chooseOne) {
+                    squareSet[i][j].style.opacity = '0.5';
+                }
+                else if (squareSet[i][j]) {
+                    squareSet[i][j].style.opacity = '1';
+                }
+            }
+        }
+    }
+    
+    function clearSquare(x, y) {
+        wrap.removeChild(squareSet[x][y]); // 刪除方塊
+        squareSet[x][y] = null;
+    } 
+    
+    </script> 
+    
+ 
+    
+</body></html>

@@ -4,9 +4,15 @@
         <meta charset="utf-8">
         <title>my test</title>
         <style type="text/css">
-            * {
+            /* {
                 box-sizing:border-box;
                 background-color: black;
+            }*/
+            
+            @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+            body{background-color: black;
+                font-family: 'cwTeXYen', sans-serif;
+                color:white;
             }
             
             #dancingperson{
@@ -21,10 +27,10 @@
             }
             
             #mouse{
-                cursor:url("https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=2ahUKEwiErImcuMHmAhW_w4sBHTdbDfYQjRx6BAgBEAQ&url=https%3A%2F%2Fzh.pngtree.com%2Fso%2F%25E5%25B0%258F%25E8%25B1%25AC&psig=AOvVaw2z1hsKC9IjPk1FjCnofCeH&ust=1576835513794312"),default;
-                width:300px;
+                cursor:url("smi355.cur"),default;
+                /*width:300px;
                 height:300px;
-                border:1px solid pink;}
+                border:1px solid pink;*/}
             
             #showlocking{
                 background-image: url("lockingbg.jpg");
@@ -52,7 +58,8 @@
             
             .mainpic{
                 position: relative;
-                text-align: center;
+                /*float: center;*/
+                text-align: right;
                 width: auto;
                 height: 550px;
                 z-index: 1;
@@ -77,8 +84,9 @@
 
             /* Hide the images by default */
             .mySlides {
-              display: none;
-              text-align: center;
+                display: none;
+                text-align: center;
+                margin: 0px;
             }
 
             /* Next & previous buttons */
@@ -234,13 +242,16 @@
                 //slides[slideIndex-1].setAttribute("style", "display: block");
                 slides[slideIndex-1].style.display = "block";
                 dots[slideIndex-1].className += " active";
+                var bg=parseInt(slideIndex-1);
+                $("body").css({"background-image":"url(0"+bg+".jpg)", "background-size":"300px auto"});
             }
         </script>
     </head>
-    <body>
+    <body id="mouse">
         <div id=dancingperson></div>
         <h1 class="title">舞風介紹</h1>
         <div class="title">街舞有各種舞風，以下會介紹六種舞風的歷史和特色等</div>
+        <a href="連連看.html" style="float:right; margin-right:20%; color:pink; font-size: 20px;"target="_blank">小測驗</a>
         <br>
         <!-- Slideshow container -->
         <div class="slideshow-container">
@@ -248,29 +259,30 @@
           <!-- Full-width images with number and caption text -->
           <div class="mySlides fade" id="locking">
             <!--<div class="numbertext">1 / 3</div>-->
-            <img src="lockingbg.jpg" class="bgpic">
+            <!--<img src="lockingbg.jpg" class="bgpic">-->
             <img id="showlocking" class="mainpic" src="locking.jpg" alt="locking">
               <!--<img class="bgpic" src="lockingbg.jpg">-->
           </div>
 
           <div class="mySlides fade">
-            <!--<div class="numbertext">2 / 3</div>-->
-            <img id="showbreaking" class="mainpic" src="breaking.jpg" alt="breaking">
-          </div>
-
-          <div class="mySlides fade">
-            <!--<div class="numbertext">3 / 3</div>-->
-            <img id="showhiphop" class="mainpic" src="hip hop.jpg" alt="hip hop">
-          </div>
-            
-        <div class="mySlides fade">
-            <!--<div class="numbertext">3 / 3</div>-->
-            <img id="showpopping" class="mainpic" src="popping.jpg" alt="popping">
-          </div>
-            
-            <div class="mySlides fade">
             <!--<div class="numbertext">3 / 3</div>-->
             <img id="showwaccking" class="mainpic" src="waacking.jpg" alt="waacking">
+          </div>
+
+        <div class="mySlides fade">
+            <!--<div class="numbertext">3 / 3</div>-->
+            <img id="showhiphop" class="mainpic" src="hip hop.jpg" alt="hip hop">
+        </div>
+            
+            <div class="mySlides fade">
+                <!--<div class="numbertext">3 / 3</div>-->
+                <img id="showpopping" class="mainpic" src="popping.jpg" alt="popping">
+            </div>
+            
+            
+        <div class="mySlides fade">
+            <!--<div class="numbertext">2 / 3</div>-->
+            <img id="showbreaking" class="mainpic" src="breaking.jpg" alt="breaking">
           </div>
             
             <div class="mySlides fade">
@@ -296,28 +308,28 @@
         
         <p>
                 <div class="average">
-                    <a class="mouse" href="locking.html" target="_blank">locking</a>
+                    <a class="mouse" href="locking.html" target="_blank">Locking</a>
                 </div>
                 
                 <div class="average">
-                    <a href="waacking.html" target="_blank">waacking</a>
+                    <a href="waacking.html" target="_blank">Waacking</a>
                     
                 </div>
                 
                 <div class="average">
-                    <a href="hip%20hop.html" target="_blank">hip hop</a>
+                    <a href="hip%20hop.html" target="_blank">Hip Hop</a>
                 </div>
                 
                 <div class="average">
-                    <a href="popping.html" target="_blank">popping</a>
+                    <a href="popping.html" target="_blank">Popping</a>
                 </div>
                     
                 <div class="average">
-                    <a href="breaking.html" target="_blank">breaking</a>
+                    <a href="breaking.html" target="_blank">Breaking</a>
                 </div>
                 
                 <div class="average">
-                    <a href="voguing.html" target="_blank">voguing</a>
+                    <a href="voguing.html" target="_blank">Voguing</a>
                 </div>
 
                 
@@ -326,10 +338,6 @@
 </html>
 
 <!--
-1. 背景文繞圖解決方法？？
-2. 背景音樂播不出來？？？
-3. 一開始的預覽畫面 怎麼弄？？？？
-4. 鼠標？？
-5. 影片不要有聲音
-6. 拉吧
+1. 播音樂時 喇吧才開始震動
+2. margin 設成0 還是不行？ || background-image
 -->

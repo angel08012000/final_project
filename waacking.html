@@ -4,16 +4,25 @@
         <meta charset="utf-8">
         <title>waaccking</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <style type="text/css">   
+            @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
             body{background-color: black;
-                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            }  
+                font-family: 'cwTeXYen', sans-serif;
+                color:white;
+                text-align: center;
+            }
+            
+            #mouse{
+                cursor:url("https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=2ahUKEwiErImcuMHmAhW_w4sBHTdbDfYQjRx6BAgBEAQ&url=https%3A%2F%2Fzh.pngtree.com%2Fso%2F%25E5%25B0%258F%25E8%25B1%25AC&psig=AOvVaw2z1hsKC9IjPk1FjCnofCeH&ust=1576835513794312"),default;
+                width:300px;
+                height:300px;
+                border:1px solid pink;
+            }
             a{text-decoration-line: none;}
             .mark{height: 100pt; width: auto;}
-            .para{border:solid;border-color:goldenrod;margin-left:50pt;padding:10pt;}
+            .para{border:solid;border-color:goldenrod;margin-left:50pt;margin-right:50pt;padding:10pt;}
             .introduction{margin-left:60pt;font-size:20px;}
-            p{color:white;}   
-            h1{color:white;}   
             #master        { position: fixed; width: 100px; top: 60px; left: -100px; z-index:2; visibility: visible;} 
             #menu        { position: absolute; width: 18px; top: 70px; left: 100px; z-index: 6; visibility: visible;} 
             #screen        { position: absolute; width: 100px; height: 30px; top: 76px; left: 0px; z-index: 5; visibility: visible; background: blue; } 
@@ -82,19 +91,36 @@
                 }else if(x=='stop'){
                  document.getElementById("MovieShow").pause();
                 }}
+                
+                function start(){
+                    document.getElementById("music").onplaying = function(){
+                        $("#horn").attr("class", "animated infinite heartBeat");
+                        console.log("in");
+                    }
+                    
+                    document.getElementById("music").addEventListener("pause", stop, false);
+                }
+                
+                function stop(){
+                    $("#horn").removeClass("animated infinite heartBeat");
+                    console.log("out");
+                }
+                
+                window.addEventListener("load", start, false);
+                
             
             </script>
     </head>
     
-    <body>
-        <h1 align="center">waaccking</h1>
+    <body class="mouse">
+        <h1 align="center">Waaccking</h1>
         <p class="introduction">Waacking這種舞蹈總是給人一種性感與優雅並存的感覺，往往學習waacking的女生在跳了幾年之後，整個人的氣質和形象都會得到大大提升，這也是為什麼waacking這個舞種總是盛產女神的原因。當然，waacking也有很多男生在跳，而且跳得也不比女生差。而要了解waacking要從70年代講起……</p>
         <br>
         <div style="margin-left:100px;">
-            <img src="喇叭.png" class="animated infinite heartBeat"style="height:100px;"> 
-            <audio class="introduction" controls>
-                <source src="boogie wonderland.ogg" type="audio/ogg">
-                <source src="boogie wonderland.mp3" type="audio/mpeg">
+            <img id="horn" src="喇叭.png" style="height:100px;"> 
+            <audio id="music" class="introduction" controls>
+                <source src="boogie%20wonderland.ogg" type="audio/ogg">
+                <source src="boogie%20wonderland.ogg" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
         </div>
@@ -102,14 +128,13 @@
         <h1 align="center" id="history">History</h1>
         <div id="master">
                 <div id="menu">
-                    <img class="mark" src="mini.png" onmouseover="expand();" alt="Menu" />
+                    <img class="mark" src="mini.jpg" onmouseover="expand();" alt="Menu" />
                 </div>
                 <div id="screen"></div>
                 <dl id="screenlinks">
                     <dd><a href="#history">history</a></dd>
                     <dd><a href="#dancer">dancer</a></dd>
                     <dd><a href="#example">example</a></dd>
-                    <dd><a href="#event">event</a></dd>
                 </dl>
         </div>
         <div class="para">
@@ -137,7 +162,6 @@
         <div class="para">
             <h1>IBUKI(Bad Queen Waacking Basic Class)</h1>
             <img src="waacking.jpg" style="height:300px;">
-            <img src="w.gif" style="position: absolute;left:70%; height:300px;">
             <p>天才美少女 8歲開始跳舞</p>
             <p>Dance@Live簽約舞蹈明星也是日本職業舞蹈明星</p>
             <p>多家知名品牌代言</p>
@@ -160,13 +184,7 @@
                 <source src="waacking.mp4" type="video/mp4">
                 您的瀏覽器不支援此 HTML5 影片標籤
             </video>
-            <input type="button" value="開始播放" onclick="Control('start');">
-        </div>
-        <h1 align="center" id="event">Event</h1>
-        <div class="para">
-            <p>College High</p>
-            <p>C'est la waack</p>
-            <p>WOD (World Of Dance)</p>
+            <input type="button" value="waack" onclick="Control('start');">
         </div>
     </body>
 </html>

@@ -3,14 +3,222 @@
     <head>
         <meta charset="utf-8">
         <title>voguing</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <style type="text/css">   
+            @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+            body{background-color: black;
+                font-family: 'cwTeXYen', sans-serif;
+                color:white;
+                text-align: center;
+            }
+            
+            #mouse{
+                cursor:url("https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=2ahUKEwiErImcuMHmAhW_w4sBHTdbDfYQjRx6BAgBEAQ&url=https%3A%2F%2Fzh.pngtree.com%2Fso%2F%25E5%25B0%258F%25E8%25B1%25AC&psig=AOvVaw2z1hsKC9IjPk1FjCnofCeH&ust=1576835513794312"),default;
+                width:300px;
+                height:300px;
+                border:1px solid pink;
+            }
+            table{border-color:white;border: solid;}  
+            tr{border-color:white;border: solid;}
+            td{border-color:white;border: solid;}
+            a{text-decoration-line: none;}
+            .mark{height: 100pt; width: auto;}
+            .para{border:solid;border-color:goldenrod;margin-left:50pt;margin-right:50pt;padding:10pt;}
+            .introduction{margin-left:60pt;font-size:20px;text-align: center;}
+            #master        { position: fixed; width: 100px; top: 60px; left: -100px; z-index:2; visibility: visible;} 
+            #menu        { position: absolute; width: 18px; top: 70px; left: 100px; z-index: 6; visibility: visible;} 
+            #screen        { position: absolute; width: 100px; height: 30px; top: 76px; left: 0px; z-index: 5; visibility: visible; background: blue; } 
+            #screenlinks    { position: absolute; width: 88px; top: 81px; left: 5px; background: #ccddff; border: 1px solid #77f; margin: 0px; padding: 2px 0 0; z-index:5; visibility:visible;} 
+            #screenlinks dd    { margin: 0; padding: 0 0 2px 5px; } 
+            </style>
+            <script>
+                var master = new Object("element") 
+                master.curLeft = -100;
+                master.curTop = 10; 
+                master.gapLeft = 0;
+                master.gapTop = 0; 
+                master.timer = null; 
+ 
+                function moveAlong(layerName, paceLeft, paceTop, fromLeft, fromTop){ 
+                    clearTimeout(eval(layerName).timer) 
+ 
+                    if(eval(layerName).curLeft != fromLeft){ 
+                        if((Math.max(eval(layerName).curLeft, fromLeft) - Math.min(eval(layerName).curLeft, fromLeft)) < paceLeft){
+                            eval(layerName).curLeft = fromLeft
+                        } else if(eval(layerName).curLeft < fromLeft) {
+                            eval(layerName).curLeft = eval(layerName).curLeft + paceLeft
+                        } else if(eval(layerName).curLeft > fromLeft) {
+                            eval(layerName).curLeft = eval(layerName).curLeft - paceLeft
+                        }
+                        document.getElementById([layerName]).style.left = eval(layerName).curLeft + 'px';
+                    } 
+ 
+                    if(eval(layerName).curTop != fromTop){ 
+                        if((Math.max(eval(layerName).curTop, fromTop) - Math.min(eval(layerName).curTop, fromTop)) < paceTop){
+                            eval(layerName).curTop = fromTop
+                        } else if(eval(layerName).curTop < fromTop) {
+                            eval(layerName).curTop = eval(layerName).curTop + paceTop
+                        } else if(eval(layerName).curTop > fromTop) {
+                            eval(layerName).curTop = eval(layerName).curTop - paceTop
+                        } 
+                        document.getElementById([layerName]).style.top = eval(layerName).curTop + 'px';
+                    } 
+ 
+                    eval(layerName).timer=setTimeout('moveAlong("'+layerName+'" , '+paceLeft+' , '+paceTop+' , '+fromLeft+' , '+fromTop+')',30) 
+                } 
+ 
+                function setPace(layerName, fromLeft, fromTop, motionSpeed){ 
+                    eval(layerName).gapLeft = (Math.max(eval(layerName).curLeft, fromLeft) - Math.min(eval(layerName).curLeft,fromLeft))/motionSpeed 
+                    eval(layerName).gapTop = (Math.max(eval(layerName).curTop, fromTop) - Math.min(eval(layerName).curTop,fromTop))/motionSpeed
+ 
+                    moveAlong(layerName, eval(layerName).gapLeft, eval(layerName).gapTop, fromLeft, fromTop) 
+                } 
+ 
+                var expandState = 0 
+ 
+                function expand(){ 
+                    if(expandState == 0){
+                        setPace("master", 0, 10, 10);
+                         expandState = 1;
+                    } else {
+                        setPace("master", -100, 10, 10);
+                        expandState = 0;
+                    } 
+                }
+                function Control(x){
+                if(x=='start'){
+                    document.getElementById("MovieShow").play();
+                    var vol = document.getElementById("MovieShow");
+                    vol.volume = 0;
+                }else if(x=='stop'){
+                 document.getElementById("MovieShow").pause();
+                }}
+                
+                function start(){
+                    document.getElementById("music").onplaying = function(){
+                        $("#horn").attr("class", "animated infinite heartBeat");
+                        console.log("in");
+                    }
+                    
+                    document.getElementById("music").addEventListener("pause", stop, false);
+                }
+                
+                function stop(){
+                    $("#horn").removeClass("animated infinite heartBeat");
+                    console.log("out");
+                }
+                
+                window.addEventListener("load", start, false);
+                
+            </script>
     </head>
     
-    <body>
-        <h1>voguing</h1>
-        <audio controls>
-            <source src="dem%20beats.ogg" type="audio/ogg">
-            <source src="dem%20beats.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+    <body class="mouse">
+        <h1 align="center">Voguing</h1>
+        <p class="introduction">Vogue這項舞風根源於美國哈林區，由男同志社群發展而出。<br>而一切要先從1920、1930年代的Ball說起……</p>
+        <br>
+        <br>
+        <div style="margin-left:100px;">
+            <img id="horn" src="喇叭.png" style="height:100px;">
+            <audio id="music" class="introduction" controls>
+                <source src="dem%20beats.ogg" type="audio/ogg">
+                <source src="dem%20beats.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div id="master">
+                <div id="menu">
+                    <img class="mark" src="mini.jpg" onmouseover="expand();" alt="Menu" />
+                </div>
+                <div id="screen"></div>
+                <dl id="screenlinks">
+                    <dd><a href="#history">history</a></dd>
+                    <dd><a href="#dancer">dancer</a></dd>
+                    <dd><a href="#example">example</a></dd>
+                </dl>
+        </div>
+        <h1 align="center" id="history">History</h1>
+        <div class="para">
+            <h1>Ball</h1>
+            <p>最早可以追溯至1920、1930年代，紐約哈林區的變裝舞會(Ball)。當時的Ball以變裝、走秀為主，有許多不同種族的觀眾和參與者，主導者是白人同志們。然而久而久之，因為種族歧視，黑人不太容易在ball中得獎，於是他們漸漸想要有自己的Ball。</p>
+            <p>到了1960年代起開始有黑人主辦的Ball，參與人都會花很多時間準備，包括服裝的縫製設計、自我風格的展現等等，所有人，不論來自何處都一起從事、完成這項「美麗的大事」。</p>
+            <p>在Ball裡面，對同志而言，像暫時逃離自己貧窮又受歧視的事實，擁有宛如成名、有財富、明星般的感覺，就像走星光大道。來到Ball可以扮演任何角色，不管是想賣弄性感、展現智慧或表達優雅。Ball裡面總是充滿許多才華洋溢的人，因為在現實的生活中，創意時常會被壓抑，但在Ball裡則可以盡情創造。</p>
+            <p>最初黑人自己舉辦的Ball只有走秀，獎項只有四到五項，比賽項目(Categories)並不多。Ball裡流行的主題隨著時代也有所改變：</p>
+            <h2>(1)早期(1960s前半):</h2>
+            <p>大家想要妝扮得像拉斯維加斯的女郎，身上點綴許多羽毛、珠珠，非常的華麗誇張</p>
+            <h2>(2)中期(1960s後半):</h2>
+            <p>大家會模仿當時的電影明星，例如瑪麗蓮夢露、伊莉莎白泰勒等</p>
+            <h2>(3)後期(1980s-): </h2>
+            <p>後期想像專業的模特兒一樣，例如Iman, Christie Brinkley, Maud Adams等。</p>
+            <h1>Categories</h1>
+            <p>為了要讓不同類型的人都能參與Ball，所以後來設計了許多其他的比賽項目(Categories)讓每個人更有參與感，突破年資或實力上的限制。除了你有好身材、很時尚以外，如果你笑得很親切、牙齒很美或很會走秀等等，也可以成為一項比賽項目(Category)。</p>
+            <h2>Categories的幾個例子:</h2>
+            <p>Executive Realness扮演CEO的角色</p>
+            <p>Military Scene軍人的生活與穿著</p>
+            <p>High Fashion Eveningwear時尚晚宴裝</p>
+            <h2>現在常見的幾項Category</h2>
+            <p>Hand Performance</p>
+            <p>Femme queen</p>
+            <h1>Performance</h1>
+            <p>Performance是一種舞蹈的形式，它現在的樣子是從60年代後期顯現的，當時稱為Presentation。它的文化及區域的發展，是從黑人由美國南部往北遷，到哈林文藝復興 (Harlem Renaissance) ，一直到現在。它是由複雜的節奏和方位變化，構成視覺上的動能，就像相片中的人物變成了3D，動作有時候還會長得像埃及象形符號。</p>
+            <p>到了70年代中期，它變成一個專門項目。此時Presentation的說法被取代成Performance，動作源於女生跳舞項目中的阿拉伯舞、華麗的伸展還有時尚雜誌姿勢。直到70年代後期才有男性的壯碩、肌肉、健美項目。接著是Butch queen Performance，融合女性爵士和男性健美的動作，流行舞的 Hustle, Locking 和 Popping也開始被混入其中，變得更有技術性，漸漸演變成項目像是Pop Dip Spin。</p>
+            <p>Pop Dip Spin就是肌肉震動、身體落地及旋轉，要連續轉換三種動作的元素。後來加入道具，成為Pop Dip Spin with a Prop項目，又稱為Performance with a Prop。女生被要求使用羽毛、圍巾、扇子，男生則使用劍、盾等。</p>
+            <p>70年代後期，Hip Hop文化誕生後，受Break Dance影響，Performance提高了對於體操技能的標準。一直發展到80年代後期，專門項目例如Performance with Gymnastics、Performance with Stretch，開始了奧運體操風格的時代。</p>
+            <h1>Vogue類別</h1>
+            <p>Vogue舞風可以大致分成兩類，「Old way」和「New way」。Old way通常指1990年之前的風格，建立在優雅而且有棱有角的線條上，其模仿各種時尚雜誌的妝容、服裝以及姿勢，並以此為基礎加入更多肢體及舞蹈的元素，於是隨著音樂的韻律感，加上對於中國戲曲以及武功動作的吸收，Vogue Old Way逐漸成形，它裝載著昔日時光的優雅和靈魂，彷彿隨時有一頂聚光燈照射，任何動作都輕柔但不失有力；優雅但不失有勁，戲曲和武功的慣用套路以及運用身體的方法在這裡得到更大的延伸，諸如烏龍絞柱、矮子步、殭屍倒地等均有所吸收。</p>
+            <p>而隨著時間的發展，1990年之後，有些流派在音樂上漸趨快速，技巧和角度也漸趨複雜，由原本的box和line變形為更令人眼花撩亂的錯覺展現：construction , stretch and click。這些流派在扭曲身體和製造手部幻覺的功力愈發強烈，便借鑒了體操和芭蕾的身段來加強其扭曲驚人以及氣質有度的姿態，於是，爲做區隔，我們稱這些新的派別為Vogue New Way（1990年代中期出現的Vogue fem，或稱Vogue Femme也包含在內）。不過，其實所謂Old way、New way都是相對的概念，到了2017年的今天，當初的New way可能也該叫做Old way了。</p>
+            <h1>House</h1>
+            <p>House是新意義下的「家庭」。成員因為都是同志而連結在一起。身為同志，原本的家庭無法接受，覺得很丟臉尷尬，因而將他們逐出。同是天涯淪落人，這些被逐出家庭的同志們組成另一個家庭彌補這種空缺。</p>
+            <h1>House與House之間</h1>
+            <p>不同House間的互動幾乎像一場戰爭、同志之間的街頭械鬥。而彼此競爭的意義就是在這場械鬥中成為「最美麗的人」而得獎。</p>
+            <h2>舉幾個現在還存在的知名的House：</h2>
+            <p>House of Labeija---------目前所知最早的House，70年代就有</p>
+            <p>House of Xtravaganza--目前所知最早的拉丁美洲裔House</p>
+            <p>House of Ninja ----------- Vogue舞蹈傳奇Willi Ninja所創辦的House</p>
+            <p>House of Mizrahi--------因為舞團(Vogue Evolution)上America’s Best Dance Crew節目而出名的Leiomy Mizrahi 也是其中一員</p>
+            <br>
+            <p>Dorian Corey是輩分很高的變裝皇后。在記錄片Paris is Burning中她說，在HOUSE彼此競爭的時候，大夥情緒高張、非常激動，快到了要打架的地步，但這種激動的情緒也是樂趣之一。每個人都覺得自己的HOUSE是最好的，到後來在各個Categories的競爭上變的過度追求準確，彼此雞蛋挑骨頭、堅持己見互不相讓。「簡直就像是俄羅斯人以美國教練踩線要求取消資格」，Dorian Corey說：「Ball 也是這麼挑剔。」</p>
+            <br>
+            <p>由於House與House之間的競爭，使得Shade的元素開始出現。而在介紹Shade之前要先知道什麼是Reading。</p>
+            <h1>Reading</h1>
+            <p>指「檢視、審視」。本於吹毛求疵的精神，要找尋對方身上可以嘲笑的點，例如可笑的身材、穿醜衣、下垂的臉等等，找到對方的小缺點並放大、誇飾。這是一種「污辱的藝術」但這種「污辱的藝術」前提仍是要在同志與同志之間才能建立，如果是在直男直女的世界進行，就會像是真正的汙辱。例如我們看到直男直女說別人是婊子(Bitch)，感覺像在汙辱人，但同志彼此之間說對方是婊子、Bitch時，比較不會有污辱的感覺，這種差異就是Reading的精神。之後在Reading的基礎之上發展出了Shade。</p>
+            <h1>Shade</h1>
+            <p>比Reading的境界更提高一層，因為Shade的精神是「你很醜，你自己都知道。我連講都懶得講。」連多餘的言語都省去，而以態度、肢體語言打敗對方。</p>
+            <h1>Voguing</h1>
+            <p>Voguing就是純粹指一種舞蹈的風格。延續Shade的精神，Voguing是藉由舞蹈的形式，而不是說話來一決勝負。兩個人互相鄙視、不喜歡對方，不打架而用舞蹈來爭高下，這種舞蹈「就像是拿兩把刀互砍」。</p>
+            <h1>Vogue</h1>
+            <p>名字來自時尚雜誌Vogue，因為這項舞蹈風格的動作就像雜誌中模特兒的姿勢。Vogue一詞除了包含Voguing的舞蹈風格外，今日它已經有了更廣泛的意義，也蘊含著高貴美麗的文化、態度及時尚感。</p>
+            <p>Willi Ninja說Vogue有從古埃及壁畫的象形文字擷取出的元素，還有奧運體操動作等等，強調完美的線條、彆扭的姿勢。另外也有從中國功夫、印度舞蹈取材，Willi Ninja自己就特別喜歡展現其中的手指動作。Willi Ninja是House of Ninja的Mother，致力於Vogue的推廣，參與過許多媒體製作，他說：「想讓大眾文化接受你，你也得先接受大眾文化。」</p>
+            <h1>近二十年的演變</h1>
+            <p>Vogue過去的發展都是非主流、屬於次文化，直到1990年，Madonna發行的歌“Vogue“爆紅，攻下各大金榜及獎項，一夕之間打響了Vogue 舞蹈的知名度，讓它變為大眾所熟悉。拜瑪丹娜之賜， Vogue打入主流文化。這首歌的舞蹈是由Jose Xtravaganza及Luis Xtravaganza主編，兩人都是House of Xtravaganza的成員，Jose Xtravaganza是House of Xtravaganza的Father。</p>
+            <p>1990年代中期新風格出現，叫做Vogue Fem(或Vogue Femme)，源自芭蕾和現代舞的女性化動作，其後發展出稱為“Dramatic“的元素極具侵略性，特色是瘋狂旋轉身體和頭髮、誇張的大動作及全身掉到地板的「摔」(drops)。另一種風格為”Soft and cunt”則是強調女性化，要柔美，感受自己，不受干擾。</p>
+            <p>二十一世紀之後，隨著網路的爆炸，Youtube上開始到處都是粉絲們上傳的影片，舞團Vogue Evolution帶來的衝擊，Leiomy Mizrahi的甩髮風格、Javier Ninja的折骨風格等等，都是Vogue到目前的發展。</p>
+            <h1>音樂</h1>
+            <p>舞蹈的形式是隨著音樂類型而演變。1960到1980年代時，Ball使用的音樂多以Funk、Disco、House為主，而1980年代後期音樂類型轉變，DJ開始創作新的音樂(Ballroom Beats)。像Masters at Work的“The Ha Dance“ ，每四拍出現的類似敲鑼的聲音，非常適合新的舞蹈風格，成為Vogue經典名曲，其中許多元素在今天的Vogue歌曲裡仍常出現。</p>
+            <p>當今有許多製作Ballroom Beats音樂的DJ，例如MikeQ、Angel X和Vjuan Allure等。Ball裡的MC(commentator)會Chanting，Chanting就是在Ballroom Beats的背景音樂之上吟唱，歌詞大多圍繞女性性器官(pussy, cunt)或者是嘲笑別人的弱點、凸顯自己高高在上，發揮Shade的精神。</p>
+            <h1>結語</h1>
+            <p>從Ball開始，到House的發展、Shade出現，種種元素融合演進出現在的Vogue。至於到了台灣之後會有什麼發展呢？一切待續……</p>
+            <p>參考網址:<a href=" http://lumi-dance-school.blogspot.com/2013/10/vogue.html"> http://lumi-dance-school.blogspot.com/2013/10/vogue.html</a></p>
+            <p><a href="https://medium.com/ntuartfest/vogue-%E8%B5%B7%E6%BA%90%E8%88%87%E6%B5%81%E8%AE%8A-%E8%88%9E%E8%B9%88%E5%8F%B2-9177d304eb5f">https://medium.com/ntuartfest/vogue-%E8%B5%B7%E6%BA%90%E8%88%87%E6%B5%81%E8%AE%8A-%E8%88%9E%E8%B9%88%E5%8F%B2-9177d304eb5f</a></p>
+        </div>
+        <h1 align="center" id="dancer">Dancer</h1>
+        <div class="para">
+            <h1>Inxi</h1>
+            <img src="v.jpg" style="height:300px;">
+            <p>來自夢幻國家芬蘭<br>
+            國際家族House Of Prodigy的國際母親，Yoututbe影片爆紅StreetStar一戰成名，與Lasseindra Ninja神力女超人ＶＳ美少女戰士，當時2013年創造將近600萬人次觀看的世紀大戰。<br>
+            
+            五年後月光仙子日益精進多次拿下許多大 Ball的冠軍，並且在POPPING以及不同風格的轉換非常有特色。<br>
+            
+            Vogue Femme,Popping都難不倒她</p></div>
+        <h1 align="center" id="example">Example</h1>
+        <div class="para">
+            <video id="MovieShow" width="360" height="270" >
+                <source src="voguing.mp4" type="video/mp4">
+                您的瀏覽器不支援此 HTML5 影片標籤
+            </video>
+            <input type="button" value="dip" onclick="Control('start');">
+        </div>
     </body>
 </html>

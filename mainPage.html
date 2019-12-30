@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+    <heaed>
+        <meta charset="utf-8">
+        <title>舞風介紹</title>
+        <style>
+            body {
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                background: black;
+            }
+
+            #dancingperson{
+                width: 48.8px;
+                height: 48px;
+                background: url("dance5.jpg") no-repeat; 
+                animation: Move 1s steps(5) infinite; 
+                float:left;
+            }
+            @keyframes Move{
+                100%{background-position: -238px;}
+            }
+            
+            h1{ 
+                text-align: center; color: white;
+            }
+            
+            p{ 
+                color: white;
+            }
+            
+            a{
+                text-decoration: none;
+                color: beige;
+                font-size: 20px;
+            }
+            
+            .average{
+                width: calc(100%/6);
+                float: left;
+            }
+            
+            .dot {
+              cursor: pointer;
+              height: 20px;
+              width: 20px;
+              margin: 0 2px;
+              background-color: #bbb;
+              color: white;
+              border-radius: 50%;
+              display: inline-block;
+            }
+            
+            .dot:hover{
+              background-color: #717171;
+            }
+            
+            .mainpic{
+                position: relative;
+                text-align: center;
+                width: auto;
+                height: 550px;
+                z-index: 1;
+            }
+            
+            .bgpic{
+                position: absolute;
+                z-index: 2;
+                float:left;
+                text-align: center;
+                height: 200px;
+                top: 0px;
+                left: 0px;
+            }
+            
+            .average a{
+                text-decoration: none;
+                color: #77DDFF;
+                font-size: 30px;
+            }
+            
+            .average{
+                width: calc(100%/6);
+                float: left;
+                
+            }
+
+            
+        </style>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            
+            $(document).ready(function(){
+                var t=true;
+                $("a").hover(function(){
+                    if(t){
+                        t=false;
+                        $(this).css("font-size",50);
+                    }
+                    else{
+                        t=true;
+                        $(this).css("font-size",30);
+                    }
+                });
+            });
+            
+            function showl(){
+                $("#main").attr("src", "locking.jpg"); 
+            }
+            
+            function showb(){
+                $("#main").attr("src", "breaking.jpg");
+            }
+            
+            function showh(){
+                $("#main").attr("src", "hip hop.jpg"); 
+            }
+            
+            function showp(){
+                $("#main").attr("src", "popping.jpg"); 
+            }
+            
+            function showw(){
+                $("#main").attr("src", "waacking.jpg");
+            }
+            
+            function showv(){
+                $("#main").attr("src", "voguing.jpg");
+            }
+            
+        </script>
+    </heaed>
+
+    
+    <body>
+        <div id=dancingperson></div>
+        <h1 class="title">舞風介紹</h1>
+        <div class="title">街舞有各種舞風，以下會介紹六種舞風的歷史和特色等</div>
+        <br>
+        <div>
+            <img class="mainpic" id="main" src="locking.jpg">
+        </div>
+        <br>
+
+        <!-- The dots/circles -->
+        <div style="text-align:center">
+          <button class="dot" id="locking" onclick="showl()">L</button> 
+          <button class="dot" id="breaking" onclick="showb()">B</button>
+          <button class="dot" id="hip hop" onclick="showh()">H</button> 
+          <button class="dot" id="popping" onclick="showp()">P</button> 
+          <button class="dot" id="waccking" onclick="showw()">W</button> 
+          <button class="dot" id="voguing" onclick="showv()">V</button> 
+        </div>
+        
+        <p>
+                <div class="average">
+                    <a class="mouse" href="locking.html" target="_blank">locking</a>
+                </div>
+                
+                <div class="average">
+                    <a href="breaking.html" target="_blank">breaking</a>
+                </div>
+                
+                <div class="average">
+                    <a href="hip%20hop.html" target="_blank">hip hop</a>
+                </div>
+                
+                <div class="average">
+                    <a href="popping.html" target="_blank">popping</a>
+                </div>
+                    
+                <div class="average">
+                    <a href="waacking.html" target="_blank">waacking</a>
+                </div>
+                
+                <div class="average">
+                    <a href="voguing.html" target="_blank">voguing</a>
+                </div>
+    
+        </p>
+    
+    </body>
+</html>

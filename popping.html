@@ -3,13 +3,26 @@
     <head>
         <meta charset="utf-8">
         <title>popping</title>
-        <style type="text/css">   
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <style type="text/css">
+            @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
             body{background-color: black;
-                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            }  
+                font-family: 'cwTeXYen', sans-serif;
+                color:white;
+                text-align: center;
+            }
+            
+            #mouse{
+                cursor:url("https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=2ahUKEwiErImcuMHmAhW_w4sBHTdbDfYQjRx6BAgBEAQ&url=https%3A%2F%2Fzh.pngtree.com%2Fso%2F%25E5%25B0%258F%25E8%25B1%25AC&psig=AOvVaw2z1hsKC9IjPk1FjCnofCeH&ust=1576835513794312"),default;
+                width:300px;
+                height:300px;
+                border:1px solid pink;
+            }
+            
             a{text-decoration-line: none;}
             .mark{height: 100pt; width: auto;}
-            .para{border:solid;border-color:goldenrod;margin-left:50pt;padding:10pt;}
+            .para{border:solid;border-color:goldenrod;margin-left:50pt;margin-right:50pt;padding:10pt;}
             .introduction{margin-left:60pt;font-size:20px;}
             p{color:white;}   
             h1{color:white;}   
@@ -73,32 +86,59 @@
                         expandState = 0;
                     } 
                 }
+                
+                function Control(x){
+                    if(x=='start'){
+                        document.getElementById("MovieShow").play();
+                        var vol = document.getElementById("MovieShow");
+                        vol.volume = 0;
+                    }
+                }
+                
+                function start(){
+                    document.getElementById("music").onplaying = function(){
+                        $("#horn").attr("class", "animated infinite heartBeat");
+                        console.log("in");
+                    }
+                    
+                    document.getElementById("music").addEventListener("pause", stop, false);
+                }
+                
+                function stop(){
+                    $("#horn").removeClass("animated infinite heartBeat");
+                    console.log("out");
+                }
+                
+                window.addEventListener("load", start, false);
+                
             </script>
     </head>
     
-    <body>
-        <h1 align="center">popping</h1>
+    <body class="mouse">
+        <h1 align="center">Popping</h1>
         <p class="introduction">
             很多人都認為Popping就是像機器人那樣跳舞，但其實這麼說不太正確，robot只是Popping裡的一小部分，除此之外還有tutting, animation, cobra...等等，就是現在，讓我們回到70年代，來看看Popping的形成。
         </p>
         <br>
-        <audio class="introduction" controls>
-            <!--<source src="on%20the%20come%20up.ogg" type="audio/ogg">-->
-            <source src="on%20the%20come%20up.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+        <div style="margin-left:100px;">
+            <img id="horn" src="喇叭.png" style="height:100px;">
+            <audio class="introduction" id="music" controls>
+                <source src="on%20the%20come%20up.ogg" type="audio/ogg">
+                <source src="on%20the%20come%20up.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
         <br>
         <h1 align="center" id="history">History</h1>
         <div id="master">
                 <div id="menu">
-                    <img class="mark" src="mini.png" onmouseover="expand();" alt="Menu" />
+                    <img class="mark" src="mini.jpg" onmouseover="expand();" alt="Menu" />
                 </div>
                 <div id="screen"></div>
                 <dl id="screenlinks">
                     <dd><a href="#history">history</a></dd>
                     <dd><a href="#dancer">dancer</a></dd>
                     <dd><a href="#example">example</a></dd>
-                    <dd><a href="#event">event</a></dd>
                 </dl>
         </div>
         <div class="para">
@@ -121,32 +161,63 @@
             <h1>名字演變</h1>
             <p>
                 popping這個名字的由來也是有很多種說法。
-                有人說是因為Sam Boogaloo在每次震點時都會說pop這個字，於是被稱為popping。
+                有人說是因為Boogaloo Sam在每次震點時都會說pop這個字，於是被稱為popping。
                 也有人說一群人看到他們在跳舞，就說他們跳的是popping，然後就被稱為popping了！
             </p>
-            <h1>發展</h1>
+            <h1>Boogaloo &amp; animation</h1>
+            <p>
+                Popping：在EB的理論體系裡Popping只是一種由Style
+                原始的Popping Style就是Pop加Move
+                但是我們現在跳的這種舞蹈如果不叫Popping的話叫什麼
+                EB的大師們並沒有给我們一個明確的解答
+                而我們通常所說的Popping都是指的廣義的Popping
+                也就是以Pop为基礎，融合了Boogaloo、Robot、Wave等各種Funk Style
+                （當然不包含Locking、Punking、Wacking和Breaking這幾種Funk舞蹈的内容）的一個舞蹈種類
+                這也是約定俗成和被大眾所接受的觀點
+                所以現在基本上所有的大賽上都是以Popping作為這個舞蹈的名稱
+                
+                還有Boogaloo 和 Poppin 都是 Funk Style中的一種 Style 没有包含關係
+                Animation 也是一種style
+            </p>
+            <h1>Boogaloo</h1>
+            <p>
+                狹義的Boogaloo就是指最初由Sam發明的
+                大量使用Roll和改變身體角度的動作以及Walkout產生的一種具有流動感的舞蹈
+                廣義的Boogaloo則是EB Style的代名詞
+                包含了原始的Boogaloo Style以及早期EB Family成員發明的Ticking、Crazy Legs、Toyman、Puppet、Scarecrow、Snaking等Style
+                由於這些Style來源於EB並被廣泛融入Boogaloo的表演中
+                因此成為了廣義Boogaloo的内容
+            </p>
+            <h1>Animation</h1>
+            <p>
+                最初的含義單純是指產生動作分格一樣效果的Style
+                （和Ticking、Strobing、Struting這幾種Style容易混淆但是又有所區別）
+                但是這個舞蹈在日本韓國（主要是日本）發展出了新的含義
+                也就是以Robot、Strobing、Slide等具有較強視覺效果的Funk Style為主要内容
+                注重肢體控制的一種舞蹈
+                由於很明顯與廣義Boogaloo注重舞蹈性相比
+                Animation更像是默劇或者是肢體技巧演示
+                所以常被看做是Popping中與Boogaloo相對應的一個大的Style體系
+                當然，EB很明顯不認同這種概念，究竟如何理解，就看你是信EB體系還是信日本本體系了。
+            </p>
             
         </div>
         <h1 align="center" id="dancer">Dancer</h1>
         <div class="para">
             <h1>Dytto</h1>
             <img src="Dytto.jpg" style="height:300px; width:auto">
-            <img src="popping.jpg" style="position:absolute;left:800px; height:300px">
             <p>美貌與實力兼具的 真人芭比</p>
             <p>從體操運動員 到 啦啦隊隊長 到 現在的dancer</p>
             <p>他的第一部影片 <a href="https://www.youtube.com/watch?v=5CvwgC-WQlo">barbie girl</a> 震驚了許多人</p>
             <p>雖然年輕(1998) 但實力卻超越許多人</p>
-            <h1>【資歷】</h1>
         </div>
         <h1 align="center" id="example">Example</h1>
         <div class="para">
-
-        </div>
-        <h1 align="center" id="event">Event</h1>
-        <div class="para">
-            <p>College High</p>
-            <p>obs battle</p>
-            <p>WOD (World Of Dance)</p>
+            <video id="MovieShow" width="360" height="270" >
+                <source src="fresno.mp4" type="video/mp4">
+                您的瀏覽器不支援此 HTML5 影片標籤
+            </video>
+            <input type="button" value="fresno" onclick="Control('start');">
         </div>
     </body>
 </html>

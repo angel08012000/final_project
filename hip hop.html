@@ -3,14 +3,270 @@
     <head>
         <meta charset="utf-8">
         <title>hip hop</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <style type="text/css">   
+            @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+            body{background-color: black;
+                font-family: 'cwTeXYen', sans-serif;
+                color:white;
+                text-align: center;
+            }
+            
+            #mouse{
+                cursor:url("https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=2ahUKEwiErImcuMHmAhW_w4sBHTdbDfYQjRx6BAgBEAQ&url=https%3A%2F%2Fzh.pngtree.com%2Fso%2F%25E5%25B0%258F%25E8%25B1%25AC&psig=AOvVaw2z1hsKC9IjPk1FjCnofCeH&ust=1576835513794312"),default;
+                width:300px;
+                height:300px;
+                border:1px solid pink;
+            }
+            a{text-decoration-line: none;}
+            .mark{height: 100pt; width: auto;}
+            .para{border:solid;border-color:goldenrod;margin-left:50pt;margin-right:50pt;padding:10pt;}
+            .introduction{margin-left:60pt;font-size:20px;}
+            #master        { position: fixed; width: 100px; top: 60px; left: -100px; z-index:2; visibility: visible;} 
+            #menu        { position: absolute; width: 18px; top: 70px; left: 100px; z-index: 6; visibility: visible;} 
+            #screen        { position: absolute; width: 100px; height: 30px; top: 76px; left: 0px; z-index: 5; visibility: visible; background: blue; } 
+            #screenlinks    { position: absolute; width: 88px; top: 81px; left: 5px; background: #ccddff; border: 1px solid #77f; margin: 0px; padding: 2px 0 0; z-index:5; visibility:visible;} 
+            #screenlinks dd    { margin: 0; padding: 0 0 2px 5px; } 
+            </style>
+            <script>
+                var master = new Object("element") 
+                master.curLeft = -100;
+                master.curTop = 10; 
+                master.gapLeft = 0;
+                master.gapTop = 0; 
+                master.timer = null; 
+ 
+                function moveAlong(layerName, paceLeft, paceTop, fromLeft, fromTop){ 
+                    clearTimeout(eval(layerName).timer) 
+ 
+                    if(eval(layerName).curLeft != fromLeft){ 
+                        if((Math.max(eval(layerName).curLeft, fromLeft) - Math.min(eval(layerName).curLeft, fromLeft)) < paceLeft){
+                            eval(layerName).curLeft = fromLeft
+                        } else if(eval(layerName).curLeft < fromLeft) {
+                            eval(layerName).curLeft = eval(layerName).curLeft + paceLeft
+                        } else if(eval(layerName).curLeft > fromLeft) {
+                            eval(layerName).curLeft = eval(layerName).curLeft - paceLeft
+                        }
+                        document.getElementById([layerName]).style.left = eval(layerName).curLeft + 'px';
+                    } 
+ 
+                    if(eval(layerName).curTop != fromTop){ 
+                        if((Math.max(eval(layerName).curTop, fromTop) - Math.min(eval(layerName).curTop, fromTop)) < paceTop){
+                            eval(layerName).curTop = fromTop
+                        } else if(eval(layerName).curTop < fromTop) {
+                            eval(layerName).curTop = eval(layerName).curTop + paceTop
+                        } else if(eval(layerName).curTop > fromTop) {
+                            eval(layerName).curTop = eval(layerName).curTop - paceTop
+                        } 
+                        document.getElementById([layerName]).style.top = eval(layerName).curTop + 'px';
+                    } 
+ 
+                    eval(layerName).timer=setTimeout('moveAlong("'+layerName+'" , '+paceLeft+' , '+paceTop+' , '+fromLeft+' , '+fromTop+')',30) 
+                } 
+ 
+                function setPace(layerName, fromLeft, fromTop, motionSpeed){ 
+                    eval(layerName).gapLeft = (Math.max(eval(layerName).curLeft, fromLeft) - Math.min(eval(layerName).curLeft,fromLeft))/motionSpeed 
+                    eval(layerName).gapTop = (Math.max(eval(layerName).curTop, fromTop) - Math.min(eval(layerName).curTop,fromTop))/motionSpeed
+ 
+                    moveAlong(layerName, eval(layerName).gapLeft, eval(layerName).gapTop, fromLeft, fromTop) 
+                } 
+ 
+                var expandState = 0 
+ 
+                function expand(){ 
+                    if(expandState == 0){
+                        setPace("master", 0, 10, 10);
+                         expandState = 1;
+                    } else {
+                        setPace("master", -100, 10, 10);
+                        expandState = 0;
+                    } 
+                }
+                function Control(x){
+                if(x=='start'){
+                    document.getElementById("MovieShow").play();
+                    var vol = document.getElementById("MovieShow");
+                    vol.volume = 0;
+                }else if(x=='stop'){
+                 document.getElementById("MovieShow").pause();
+                }}
+                
+                function start(){
+                    document.getElementById("music").onplaying = function(){
+                        $("#horn").attr("class", "animated infinite heartBeat");
+                        console.log("in");
+                    }
+                    
+                    document.getElementById("music").addEventListener("pause", stop, false);
+                }
+                
+                function stop(){
+                    $("#horn").removeClass("animated infinite heartBeat");
+                    console.log("out");
+                }
+                
+                window.addEventListener("load", start, false);
+                
+            
+            </script>
     </head>
     
-    <body>
-        <h1>hip hop</h1>
-        <audio class="introduction" controls>
-            <source src="tha-shiznit.ogg" type="audio/ogg">
-            <source src="tha-shiznit.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+    <body class="mouse">
+        <h1 align="center">Hip Hop</h1>
+        <p class="introduction">HipHop不只是街舞，他更是一種文化，其中包含饒舌(Rapping)、塗鴉(Graffiti)、街舞(Street dance)、打碟(DJing)四種元素。以下將針對街舞部分介紹。</p>
+        <br>
+        <div style="margin-left:100px;">
+            <img id="horn" src="喇叭.png" style="height:100px;"> 
+            <audio id="music" class="introduction" controls>
+                <source src="snoop.ogg" type="audio/ogg">
+                <source src="snoop.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <h1 align="center" id="history">History</h1>
+        <div id="master">
+                <div id="menu">
+                    <img class="mark" src="mini.jpg" onmouseover="expand();" alt="Menu" />
+                </div>
+                <div id="screen"></div>
+                <dl id="screenlinks">
+                    <dd><a href="#history">history</a></dd>
+                    <dd><a href="#dancer">dancer</a></dd>
+                    <dd><a href="#example">example</a></dd>
+                </dl>
+        </div>
+        <div class="para">
+            <h1>Hiphop dance可以分成NEW SCHOOL以及OLD SCHOOL兩大類</h1>
+            <p>最大的區別就在於動作或是音樂類型的不同</p>
+            <p>HIP-HOP DANCE 就是各種街舞的集合名詞</p>
+            <p>起源於美國街頭的舞者的即興舞蹈動作</p>
+            <p>這些街頭舞者多半是以黑人或是墨西哥人為主</p>
+            <p>或許正是所謂的『窮人的娛樂』</p>
+            <p>這些流行的街舞多半發源自美國紐約的布魯克林區</p>
+            <p>這些黑人及墨西哥人的孩子們成天在街上混，跳舞</p>
+            <p>自然而然的形成各種的派系</p>
+            <p>也很自然的在他們所跳的舞蹈上發展出不一樣的風格。</p>
+            <h1>OLD SCHOOL HIPHOP起源於：</h1>
+            <p>【　美國布魯克林區　】(美國紐約市中的一塊區域)！</p>
+            <p>大約60年代開始。那時候的party都放著勁爆的快音樂</p>
+            <p>好讓那些來跳舞的黑人可以盡情抒發心情</p>
+            <p>因為當時某位DJ說：b-boys getting down(b-boys跳舞吧)！</p>
+            <p>所以跳地板的人就被稱為b-boy，而這種舞風稱breaking。</p>
+            <br>
+            <p>西岸洛城─比較風行 OLD SCHOOL DANCE</p>
+            <p>也就是說它們宗於原味不把街舞變形變態，加強各有的風格</p>
+            <p>可以發現那邊的舞者都會把自己所專長的街舞項目跳的很神奇</p>
+            <p>可說是出神入化，但並不是指每個人。</p>
+            <br>
+            <p>直到80年代東西岸音樂交流時東岸流行起比較不勁爆的音樂</p>
+            <p>而動作變的也比較沒那麼多地板！</p>
+            <p>要點還是大的肢體動作！！</p>
+            <p>這時期叫funk！</p>
+            <p>西岸funk : 舞風有locking、popping、punking、boogaloo、robot、waving、fluid dance等</p>
+            <p>其中除boogaloo與popping(都是70年代)以外</p>
+            <p>其他都發源於60年代,都是歷史相當久遠的舞。</p>
+            <p>另外西岸funk style通常被人與breaking合稱old school dance</p>
+            <p>因為起源年代很早，約1960末!</p>
+            <br>
+            <p>因此OLD SCHOOL舞風包含BREAKING(地板動作)、LOCKING(鎖舞)、POPING (機械舞)、WAVE (電流)這些東西</p>
+            <h1>NEW SCHOOL HIPHOP起源於：</h1>
+            <p>美國東岸紐約─發源 NEW STYLE 的 NEW SCHOOL DANCE</p>
+            <p>因為他們把以上所說的四種街舞元素融合在一起，然後加以改裝變形</p>
+            <p>那麼就是美麗的NEW SCHOOL DANCE。</p>
+            <br>
+            <p>隨著音樂的發展,到了90年代</p>
+            <p>＂NEW SCHOOL DANCE＂的風格慢慢出現</p>
+            <p>以現在的眼光來看這些MC HAMMER及巴比布朗時期所流行的街舞</p>
+            <p>也漸漸變成了OLD SCHOOL</p>
+            <p>因為在92年初期時</p>
+            <p>出現了一個叫做MOP TOP（ELITE FORCE）的黑人舞蹈團體</p>
+            <p>（由HENRY LINK ， LOOSE JOINT ， BUDDHA STRETCH組成）</p>
+            <p>他們發展出一種新風格的HIP-HOP，</p>
+            <p>我稱他為『原地性的HIP-HOP』，</p>
+            <p>他不像MC HAMMER及巴比布朗時期的大動作，勁爆，大範圍式的移動</p>
+            <p>更沒有霹靂舞中那些在地上類似體操的動作</p>
+            <p>他獨有風格在於他注重身體的協調性（我們所謂的律動）</p>
+            <p>他重視身體上半身的律動及增加了許多手部的動作</p>
+            <p>不再像那些舊風格的HIP-HOP注視大範圍的移動以及腳步的動作</p>
+            <p>而是一種全身上下無與倫比的協調性</p>
+            <p>之後隨者流行文化的mtv而推廣,這就是現今的hip-hop</p>
+            <p>舞者叫他　＂new school hip-hop＂</p>
+            <br>
+            <p>new school包括house(由breaking結合house音樂並配合大量腳步技巧)</p>
+            <p>以及我們現今說的hip-hop(注重身體律動)</p>
+            <br>
+            <p>HIP-HOP DANCE的也有地區性</p>
+            <p>我們可以分成 NEW YORK STYLE與 L.A STYLE兩種</p>
+            <h1>例如NEW YORK STYLE</h1>
+            <p>它就是我們一般所看到的身體扭曲變形  各種街舞大串聯的風格</p>
+            <p>或許NEW YORK是HENRY的大本營</p>
+            <p>所以自然而然的這個地區的HIP-HOP風格也較偏向HENRY的風格</p>
+            <p>原地性的舞蹈加上身體奇怪的扭曲與LOCKING(鎖舞).POPING(機器舞).WAVE(電流)這些東西的大會串</p>
+            <p>我們不難想像它正是一種黑人的隨性作風</p>
+            <h1>而 L.A STYLE的HIP-HOP,</h1>
+            <p>它承襲延續了MC HAMMER及巴比布朗時期所流行的街舞</p>
+            <p>大動作及腳步的變化性,也保有了其勁爆的特性</p>
+            <p>只是在動作的變化上增加了許多新的花樣.</p>
+            <p>也因為HIP-HOP分成了這兩大派系</p>
+            <p>所以許多舞者或雜誌媒體上就不再統稱他們為HIP-HOP DANCE</p>
+            <h2>他們稱NEW YORK STYLE的HIP-HOP為NEWSCHOOL</h2>
+            <h2>而稱 L.A STYLE的HIP-HOP為STREET DANCE</h2>
+            <br>
+            <p>其實各種舞風都有簡單跟難的地方</p>
+            <p>通常建議初學者以hip-hop為主要練習，然後再向其他舞風推廣</p>
+            <p>因為hip-hop它會練到很多身體律動，不論是body wave、</p>
+            <p>腳跟腳尖的運用、up-down律動</p>
+            <p>在其他舞風都會出現及運用</p>
+            <p>所以只要摸熟了學其他舞風都很容易</p>
+            <h1>總體整理</h1>
+            <p>breaking，俗稱霹靂舞，主要跳地板動作。</p>
+            <p>popping就是要打點，很多人都以為這是機械，但那是錯的，機械有專門的舞(robot)，而且是不打點的。</p>
+            <p>boogaloo是運用walk out、old man、roll等技巧來表達流暢感的舞風、但他不等於電流舞(waving)。</p>
+            <p>locking就是鎖舞，他運用到快速運動及突然停止的技巧表達一種“鎖住”的感覺</p>
+            <p>robot才是所謂機械舞，他運用許多技巧讓人看起來像機器人。</p>
+            <p>waving跟fluid dance，就是電流舞跟流舞，流舞是會讓人感到舞者化成一攤水，電流則是人感到有某種波動在舞者身體裡傳遞。</p>
+            <p>punking，一種與locking同時起源的舞風，並非從locking的。乍看之下有點相似但其實是大範圍甩手及一些shaking(搖肩膀)的運用。</p>
+            <p>new jazz就是通常稱的女舞，運用到許多嫵媚的動作。</p>
+            <p>jazz則是比較類似踢踏舞，配合爵士音樂</p>
+            <p>reggae就是雷鬼，運用到許多爆發性的肢體動作及扭臀，表現強悍的雷鬼音樂。</p>
+            <p>krump是很特別的新興舞蹈，用來嘲弄即表達憤怒。</p>
+            <p>freestyle，它算是混合了各式舞風的風格，它需要各種舞風的基礎，然後隨舞者自行創造屬於自己的一套舞。</p>
+            <br>
+            <p>Zulu Nation創立了以下的幾個Hip Hop精神</p>
+            <h1>Love, Peace, Unity , Having Fun</h1>
+            <p>原本這些由雷鬼，搖滾所標榜的各種精神， 就在Zulu的壯大跟推廣之下，這些精神慢慢的融入Hip Hop。</p>
+            <p>參考網址:<a href="https://blog.xuite.net/yahoo_35028/wretch/122783396-%E9%97%9C%E6%96%BChip+hop+dance+%E6%A6%82%E8%AB%96">https://blog.xuite.net/yahoo_35028/wretch/122783396-%E9%97%9C%E6%96%BChip+hop+dance+%E6%A6%82%E8%AB%96</a></p>
+        </div>
+        <h1 align="center" id="dancer">Dancer</h1>
+        <div class="para">
+            <h1>阿K</h1>
+            <img src="%E9%98%BFk.jpeg" style="height:300px;">
+            <p>原名陳傑，1987年生於廣東湛江，現為X-crew 隊長，創辦了自己的街舞服裝品牌和工作室“Real Sport”。</p>
+            <p>小學時因看到表哥放邁克爾·傑克遜的視頻而喜歡上街舞，之後終日沉迷在游戲廳的跳舞機上， 17歲時，每天住地下室，吃5塊錢的蘭州拉面，練12個小時的舞，而後在斬獲多個國際Hip-Pop大獎後與其他冠軍組成X-crew；2018年參加《熱血街舞團》因在場上battle時表現極其凶狠而走紅，但私下阿K對工作人員很nice，人緣爆好，情緒化又耳根子軟，經歷了非常艱苦的“草根奮鬥史”的阿K說網友對他誤解很深，他台上的“凶狠”和“氣場”是一種表演，一種關於他壓抑人生的釋放性演出……</p>
+            <h1>阿K的物質裝備篇</h1>
+            <h2>戴上就會得冠軍的神奇發帶</h2>
+            <p>或許過怕了苦日子，阿K在生活中有點迷信，他迷信現在來之不易的“成績”。他有個小癖好，如果在比賽中拿了好名次，那麼當天的衣服鞋子就是他認定的“神選之物”，並且心理暗示這些東西會賦予他神奇的力量。在Vogue Me拍片當天，他帶來了他的幸運發帶，就像孫悟空的緊箍咒，在太陽穴旁產生的束縛感既帶來了曾經輝煌的壓力，又帶來了曾經幸運的安全感。</p>
+            <h2>梳了就會越跳越好的美杜莎髒辮</h2>
+            <p>半年前，他去做了這一款美杜莎神奇髒辮，這款髒辮的每一條“鞭 子”都比別人的要粗一些，也自然顯得發量驚人，法力無邊，和動作配合起來，每一條“鞭子”都甩向不同的方向，如同美杜莎的蛇頭一樣凶狠。為了配合這個發型，阿K的衣服越穿越亮，他說，“自從做了這個發型，舞蹈水平都感覺提高了，整個人都變自信了。”</p>
+            <h2>Battle男孩的“精致小公舉”梳妝台</h2>
+            <p>對於阿K來說，飾品是不能少的，就像有些“精致的小公舉”出門 之前必須戴耳環一樣，阿K跳舞也一定要有特定的裝扮，比如佩戴運動頭巾、大邊框復古墨鏡、潮牌撞色發帶、bling bling炫酷耳夾等小飾品，對他來說，這些都是非常重要的小細節。</p>
+            <h1>阿K的精神裝備篇</h1>
+            <h2>這是一根被壓迫許久的彈簧</h2>
+            <p>阿K說他跳舞最重要的精神動能來源於自己懦弱的性格。他從小個子不高又不愛說話，整個青春期都沒什麼自信，常常受欺負，直至現在，他都是一個極其不願意與人發生衝突的人。因此他渴望從跳舞中得到救贖與釋放，因為站在舞台上他就可以“名正言順” 地表現得很凶，他渴望別人重視他、注視他、認同他，他將這些渴 望真實地體現在動作裡，變成了力量。</p>
+            <h2>他信舞蹈如同別人信佛信基督</h2>
+            <p>人都有信仰，有人信佛，有人信耶穌，有人信流行偶像，而在阿K的心中，街舞就是他的信仰。從吃蘭州拉面住地下室到今天如明星 般站在舞台上，阿K不是隨隨便便順其自然選擇的舞蹈，他賣力，他投入，他覺得舞蹈就是他的命，失去舞蹈生活便失去意義。</p>
+            <h2>一個聽起來像是“狠角色”的藝名</h2>
+            <p>阿K原名陳傑，因為成長經歷加上原名不具備攻擊力，他一直想擁有一個藝名，不知道是不是港台電影看多了，有一天晚上阿K夢到 了“阿 K”這個名字，漸漸地，新名字在舞蹈圈流傳開來，私下很熟的朋友還是會叫他“大傑”，由此名字便成為了他的京劇變臉術，叫“大傑”的時候他便表現得nice，叫他“阿K”時他又一秒變狠。</p>
+        </div>
+        <h1 align="center" id="example">Example</h1>
+            
+        <div class="para">
+            <video id="MovieShow" width="360" height="270" >
+                <source src="hip%20hop.mp4" type="video/mp4">
+                您的瀏覽器不支援此 HTML5 影片標籤
+            </video>
+            <input type="button" value="律動" onclick="Control('start');">
+        </div>
     </body>
 </html>

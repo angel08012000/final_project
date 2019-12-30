@@ -3,8 +3,90 @@
     <head>
         <meta charset="utf-8">
         <title>locking</title>
-        <script type="text/javascript">
-            function Control(x){
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <style type="text/css">   
+            @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+            body{background-color: black;
+                font-family: 'cwTeXYen', sans-serif;
+                color:white;
+                text-align: center;
+            }
+            
+            #mouse{
+                cursor:url("https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=2ahUKEwiErImcuMHmAhW_w4sBHTdbDfYQjRx6BAgBEAQ&url=https%3A%2F%2Fzh.pngtree.com%2Fso%2F%25E5%25B0%258F%25E8%25B1%25AC&psig=AOvVaw2z1hsKC9IjPk1FjCnofCeH&ust=1576835513794312"),default;
+                width:300px;
+                height:300px;
+                border:1px solid pink;
+            }
+            table{border-color:white;border: solid;}  
+            tr{border-color:white;border: solid;}
+            td{border-color:white;border: solid;}
+            a{text-decoration-line: none;}
+            .mark{height: 100pt; width: auto;}
+            .para{border:solid;border-color:goldenrod;margin-left:50pt;margin-right:50pt;padding:10pt;}
+            .introduction{margin-left:60pt;font-size:20px;text-align: center;}
+            #master        { position: fixed; width: 100px; top: 60px; left: -100px; z-index:2; visibility: visible;} 
+            #menu        { position: absolute; width: 18px; top: 70px; left: 100px; z-index: 6; visibility: visible;} 
+            #screen        { position: absolute; width: 100px; height: 30px; top: 76px; left: 0px; z-index: 5; visibility: visible; background: blue; } 
+            #screenlinks    { position: absolute; width: 88px; top: 81px; left: 5px; background: #ccddff; border: 1px solid #77f; margin: 0px; padding: 2px 0 0; z-index:5; visibility:visible;} 
+            #screenlinks dd    { margin: 0; padding: 0 0 2px 5px; } 
+            </style>
+            <script>
+                var master = new Object("element") 
+                master.curLeft = -100;
+                master.curTop = 10; 
+                master.gapLeft = 0;
+                master.gapTop = 0; 
+                master.timer = null; 
+ 
+                function moveAlong(layerName, paceLeft, paceTop, fromLeft, fromTop){ 
+                    clearTimeout(eval(layerName).timer) 
+ 
+                    if(eval(layerName).curLeft != fromLeft){ 
+                        if((Math.max(eval(layerName).curLeft, fromLeft) - Math.min(eval(layerName).curLeft, fromLeft)) < paceLeft){
+                            eval(layerName).curLeft = fromLeft
+                        } else if(eval(layerName).curLeft < fromLeft) {
+                            eval(layerName).curLeft = eval(layerName).curLeft + paceLeft
+                        } else if(eval(layerName).curLeft > fromLeft) {
+                            eval(layerName).curLeft = eval(layerName).curLeft - paceLeft
+                        }
+                        document.getElementById([layerName]).style.left = eval(layerName).curLeft + 'px';
+                    } 
+ 
+                    if(eval(layerName).curTop != fromTop){ 
+                        if((Math.max(eval(layerName).curTop, fromTop) - Math.min(eval(layerName).curTop, fromTop)) < paceTop){
+                            eval(layerName).curTop = fromTop
+                        } else if(eval(layerName).curTop < fromTop) {
+                            eval(layerName).curTop = eval(layerName).curTop + paceTop
+                        } else if(eval(layerName).curTop > fromTop) {
+                            eval(layerName).curTop = eval(layerName).curTop - paceTop
+                        } 
+                        document.getElementById([layerName]).style.top = eval(layerName).curTop + 'px';
+                    } 
+ 
+                    eval(layerName).timer=setTimeout('moveAlong("'+layerName+'" , '+paceLeft+' , '+paceTop+' , '+fromLeft+' , '+fromTop+')',30) 
+                } 
+ 
+                function setPace(layerName, fromLeft, fromTop, motionSpeed){ 
+                    eval(layerName).gapLeft = (Math.max(eval(layerName).curLeft, fromLeft) - Math.min(eval(layerName).curLeft,fromLeft))/motionSpeed 
+                    eval(layerName).gapTop = (Math.max(eval(layerName).curTop, fromTop) - Math.min(eval(layerName).curTop,fromTop))/motionSpeed
+ 
+                    moveAlong(layerName, eval(layerName).gapLeft, eval(layerName).gapTop, fromLeft, fromTop) 
+                } 
+ 
+                var expandState = 0 
+ 
+                function expand(){ 
+                    if(expandState == 0){
+                        setPace("master", 0, 10, 10);
+                         expandState = 1;
+                    } else {
+                        setPace("master", -100, 10, 10);
+                        expandState = 0;
+                    } 
+                }
+                function Control(x){
                 if(x=='start'){
                     document.getElementById("MovieShow").play();
                     var vol = document.getElementById("MovieShow");
@@ -12,21 +94,88 @@
                 }else if(x=='stop'){
                  document.getElementById("MovieShow").pause();
                 }}
+                
+                function start(){
+                    document.getElementById("music").onplaying = function(){
+                        $("#horn").attr("class", "animated infinite heartBeat");
+                        console.log("in");
+                    }
+                    
+                    document.getElementById("music").addEventListener("pause", stop, false);
+                }
+                
+                function stop(){
+                    $("#horn").removeClass("animated infinite heartBeat");
+                    console.log("out");
+                }
+                
+                window.addEventListener("load", start, false);
+                
             
-        </script>
+            </script>
     </head>
     
-    <body>
-        <h1>locking</h1>
-        <audio controls>
-            <source src="teamheadkick.ogg" type="audio/ogg">
-            <source src="teamheadkick.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <video id="MovieShow" width="360" height="270" >
-            <source src="voguing.mp4" type="video/mp4">
-            您的瀏覽器不支援此 HTML5 影片標籤
-        </video>
-        <input type="button" value="開始播放" onclick="Control('start');">
+    <body class="mouse">
+        <h1 align="center">Locking</h1>
+        <br>
+        <br>
+        <div style="margin-left:100px;">
+            <img id="horn" src="喇叭.png" style="height:100px;">
+            <audio id="music" class="introduction" controls>
+                <source src="teamheadkick.ogg" type="audio/ogg">
+                <source src="teamheadkick.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <div id="master">
+                <div id="menu">
+                    <img class="mark" src="mini.jpg" onmouseover="expand();" alt="Menu" />
+                </div>
+                <div id="screen"></div>
+                <dl id="screenlinks">
+                    <dd><a href="#history">history</a></dd>
+                    <dd><a href="#dancer">dancer</a></dd>
+                    <dd><a href="#example">example</a></dd>
+                </dl>
+        </div>
+        <h1 align="center" id="history">History</h1>
+        <div class="para">
+            <h1>起源：</h1>
+            <h2>第一個答案：</h2>
+            <p>鎖舞的起始可以追溯到一個人，那就是Don Campbell。在1960年代晚期，他在表演時融合了好幾種流行舞蹈，並且加入他自己發明的動作（特別是「Lock」的動作）。最初lock的動作是意外創造出來的：有一次Don Campbell無法做出稱為Funky Chicken的動作，他於是停在一個特別的點上。他無法流暢地表演這個動作，因為他忘了下一步要怎麼做。(甚至連「對著觀眾施展」這個鎖舞的特點也是同時自然而然發展出來的：人們因為Don做出了不熟悉的動作而開始對著他大笑，而Don卻開始指(point)著他們。)當Don把這些停頓的動作加入他的表演中之後，這樣的停頓開始流行起來。結果就產生了稱為Campbellocking的舞蹈，後來被簡稱為locking。在1970年代早期，這個舞蹈引發了一種locking舞團的運動，特別是當Campbell成立了一個舞蹈團體「The Lockers」並且為鎖舞及其穿衣風格打下基礎。</p>
+            <h2>第二個答案：</h2>
+            <p>Lock 這個動作是從滑稽的卡通人物，叫做Rerun身上發展出來的，這個卡通人物是在「What's happening」的節目中出現的，他常常做很滑稽的舞蹈，手腳動非常快，可是在動作和動作間他又會短暫的暫停一下，或是鎖住。 Locking 就是身體做一些很快的動作，然後在某一個動作時候突然停住 ，最主要的關鍵在於手部的旋轉與定住。 鎖舞是 old skool 的一支, 比 breakin' 還早出現, 發源於美國洛杉磯, 是種非常強調乾淨俐落的舞蹈, 因為舞蹈中 [鎖] 的手勢, 和突然 [定格] 的舞感類似 [鎖] 的功用, 所以稱為鎖舞.</p>
+            <h2>第三個答案：</h2>
+            <p>據了解這是由古代山頂洞的黑人 看見山頂洞中國人耍雙截棍的樣子 所發展出來的街頭舞蹈 兩隻手甩來甩去真像雙截棍! </p>
+            <h1>名稱由來：</h1>
+            <p>Locking這個名字是由「鎖」（locking）的動作的概念而來，這個概念基本上是指從一個很迅速的運動中凝固不動，然後停在一個特定的姿勢，短暫地保持那樣的姿勢之後，又繼續回覆到原來的速度。鎖(locking)的動作就會與許多相對快速而連續不斷的運動產生一種強烈的對比</p>
+            <p>Locking 就是身體做一些很快的動作 然後在某一個動作時候突然停住 最主要的關鍵在於手部的旋轉與定住。 鎖舞是 old school 的一支 比 breaking 還早出現， 發源於美國洛杉磯 是種非常強調乾淨俐落的舞蹈 因為舞蹈中 [鎖] 的手勢 和突然 [定格] 的舞感 類似 [鎖] 的功用 所以稱為鎖舞</p>
+        </div>
+        <h1 align="center" id="dancer">Dancer</h1>
+        <div class="para">
+            <h1>許凱皓(Lockingjack)</h1>
+            <img src="locking.jpg" style="height:300px">
+            <p>或許大家對他的印象是偶像明星，對其實它更是學舞資歷超過十年的資深Locker</p>
+            <h1>【資歷】</h1>
+            <table style="margin-left: 40%;">
+                <tr><td>比賽名稱</td><td>名次</td></tr>
+                <tr><td rowspan="3">R16世界街舞大賽</td><td>第三名</td></tr>
+                <tr><td>新加坡冠軍</td></tr>
+                <tr><td>臺灣冠軍</td></tr>
+                <tr><td>IP LOCKING BATTLE</td><td>年度總冠軍</td></tr>
+                <tr><td>COLLEGE HIGH</td><td>冠軍</td></tr>
+                <tr><td>台大盃排舞大賽</td><td>冠軍</td></tr>
+                <tr><td>OBS國際街舞大賽</td><td>冠軍</td></tr>
+                <tr><td>BIS國際街舞大賽</td><td>亞軍</td></tr>
+            </table>
+        </div>
+        <h1 align="center" id="example">Example</h1>
+        <div class="para">
+            <video id="MovieShow" width="360" height="270" >
+                <source src="lock.mp4" type="video/mp4">
+                您的瀏覽器不支援此 HTML5 影片標籤
+            </video>
+            <input type="button" value="lock" onclick="Control('start');">
+        </div>
     </body>
 </html>
